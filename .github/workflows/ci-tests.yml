@@ -42,9 +42,11 @@ jobs:
             tox: 39
           - python-version: '3.10'
             tox: 310
-          - python-version: pypy-3.6
-            tox: py3
           - python-version: pypy-3.7
+            tox: py3
+          - python-version: pypy-3.8
+            tox: py3
+          - python-version: pypy-3.9
             tox: py3
         poetry-version: [ 1.1.4 ]
         os: [ macos-latest, windows-2019, ubuntu-20.04, ubuntu-18.04 ]
