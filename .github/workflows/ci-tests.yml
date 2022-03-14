@@ -79,10 +79,15 @@ jobs:
       with:
         path: .tox
         key: tox-${{ matrix.os }}-poetry-${{ matrix.poetry-version }}-python-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
-    - name: Install dependencies
+    - name: Install dependencies on linux
+      run: |
+        source $VENV
+        poetry install --no-interaction --no-root
+      if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' && (matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04') }}
+    - name: Install dependencies non-linux
       run: |
         poetry install --no-interaction --no-root
-      if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' }}
+      if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-20.04' && matrix.os != 'ubuntu-18.04' }}
     - name: Run tox on macos
       run: |
         poetry run tox -e py${{ matrix.config.tox }}
