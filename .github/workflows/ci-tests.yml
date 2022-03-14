@@ -88,15 +88,15 @@ jobs:
       run: |
         poetry install --no-interaction --no-root
       if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-20.04' && matrix.os != 'ubuntu-18.04' }}
-    - name: Run tox on macos
+    - name: Run tox on Windows or MacOS
       run: |
         poetry run tox -e py${{ matrix.config.tox }}
-      if: ${{ matrix.os == 'macos-latest' }}
-    - name: Run tox
+      if: ${{ (matrix.os == 'windows-2019' || matrix.os == 'macos-latest') }}
+    - name: Run tox on Linux
       run: |
         source $VENV
         poetry run tox -e py${{ matrix.config.tox }}
-      if: ${{ matrix.os != 'macos-latest' }}
+      if: ${{ (matrix.os == 'ubuntu-20.04' || matrix.os == 'ubuntu-18.04') }}
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
