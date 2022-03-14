@@ -70,7 +70,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: .venv
-        key: venv-${{ matrix.os }}-poetry-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
+        key: venv-${{ matrix.os }}-poetry-${{ matrix.poetry-version }}-python-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: poetry install
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
