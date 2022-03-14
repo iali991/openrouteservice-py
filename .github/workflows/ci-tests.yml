@@ -78,9 +78,13 @@ jobs:
         key: tox-${{ matrix.os }}-poetry-${{ matrix.poetry-version }}-python-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: |
+        poetry install
+      if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' && matrix.os == 'macos-latest' }}
+    - name: Install dependencies
+      run: |
         source $VENV
         poetry install
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      if: ${{ steps.cached-poetry-dependencies.outputs.cache-hit != 'true' && matrix.os != 'macos-latest' }}
     - name: Run tox
       run: |
         source $VENV
