@@ -71,6 +71,12 @@ jobs:
       with:
         path: .venv
         key: venv-${{ matrix.os }}-poetry-${{ matrix.poetry-version }}-python-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Load cached tox
+      id: cached-poetry-dependencies
+      uses: actions/cache@v2
+      with:
+        path: .tox
+        key: tox-${{ matrix.os }}-poetry-${{ matrix.poetry-version }}-python-${{ matrix.config.python-version }}-${{ hashFiles('**/poetry.lock') }}
     - name: Install dependencies
       run: poetry install
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
