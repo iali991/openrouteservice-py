@@ -74,7 +74,7 @@ jobs:
     - name: Install dependencies
       run: poetry install
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-    - name: Run tox lint
+    - name: Run tox
       run: |
         poetry run tox -e py${{ matrix.config.tox }}
     - name: Upload coverage to Codecov
