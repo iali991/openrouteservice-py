@@ -74,9 +74,13 @@ jobs:
     - name: Install dependencies
       run: poetry install
       if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      env:
+        PATH: "$HOME/.poetry/bin:$PATH"
     - name: Run tox
       run: |
         poetry run tox -e py${{ matrix.config.tox }}
+      env:
+        PATH: "$HOME/.poetry/bin:$PATH"
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
