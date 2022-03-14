@@ -39,11 +39,11 @@ jobs:
           - python-version: '3.10'
             tox: 310
           - python-version: pypy-3.7
-            tox: py3
+            tox: py37
           - python-version: pypy-3.8
-            tox: py3
+            tox: py38
           - python-version: pypy-3.9
-            tox: py3
+            tox: py39
         poetry-version: [ 1.1.11 ]
         os: [ macos-latest, windows-2019, ubuntu-20.04, ubuntu-18.04 ]
     runs-on: ${{ matrix.os }}
